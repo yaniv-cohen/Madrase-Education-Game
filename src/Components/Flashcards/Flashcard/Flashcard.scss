@@ -1,0 +1,13 @@
+.cardDataContainer{
+    height:300px;
+    width:fit-content;
+    padding: 20px;
+    border: 2px solid black;
+}
+.buttonsContainer{
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+}
