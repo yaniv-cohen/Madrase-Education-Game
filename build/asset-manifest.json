@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Madrase-Education-Game/static/css/main.c57c4acf.css",
-    "main.js": "/Madrase-Education-Game/static/js/main.606425f4.js",
+    "main.css": "/Madrase-Education-Game/static/css/main.72854e32.css",
+    "main.js": "/Madrase-Education-Game/static/js/main.df2c9499.js",
     "static/js/787.40a34dba.chunk.js": "/Madrase-Education-Game/static/js/787.40a34dba.chunk.js",
     "index.html": "/Madrase-Education-Game/index.html",
-    "main.c57c4acf.css.map": "/Madrase-Education-Game/static/css/main.c57c4acf.css.map",
-    "main.606425f4.js.map": "/Madrase-Education-Game/static/js/main.606425f4.js.map",
+    "main.72854e32.css.map": "/Madrase-Education-Game/static/css/main.72854e32.css.map",
+    "main.df2c9499.js.map": "/Madrase-Education-Game/static/js/main.df2c9499.js.map",
     "787.40a34dba.chunk.js.map": "/Madrase-Education-Game/static/js/787.40a34dba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c57c4acf.css",
-    "static/js/main.606425f4.js"
+    "static/css/main.72854e32.css",
+    "static/js/main.df2c9499.js"
   ]
 }

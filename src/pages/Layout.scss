@@ -1,12 +1,19 @@
-#pageHeader{
+#pageHeader {
     display: flex;
     align-self: center;
     justify-content: center;
     margin-bottom: 20px;
 }
-.flexColumn{
+
+.flexColumn {
     display: flex;
-// flex-direction: column;
-gap:60px;
-align-items: center ;
+    // flex-direction: column;
+    gap: 60px;
+    align-items: center;
+}
+
+a {
+    font-size: 24px;
+    color: #194f4c;
+
 }

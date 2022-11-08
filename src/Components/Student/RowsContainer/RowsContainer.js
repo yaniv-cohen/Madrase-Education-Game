@@ -145,7 +145,6 @@ const RowsContainer = props => {
                     setActiveItem={handleRightItemClick} inputArr={rightArr}>
 
                 </GameRow>
-                {/* <div id='leftDiv'>gggg</div> */}
             </section>
         </main>
     )

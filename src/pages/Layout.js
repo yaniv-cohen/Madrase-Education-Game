@@ -6,7 +6,7 @@ export const Layout = (props) => {
             <div className='flexColumn'>
 
                 <img height="70" src="https://madrasafree.com/wp-content/uploads/2022/02/logo.png" class="attachment-large size-large" alt="" loading="lazy" />
-
+        <p>ברוכים הבאים!</p>
 
 
                 {props.text ? (<h1>{props.text}</h1>) : (
@@ -14,7 +14,6 @@ export const Layout = (props) => {
                         <p>
 
                             <a href={window.location.href+'teacher'}>Teacher</a>
-                            {/* <a href={window.location+'gggg'}>gggg</a> */}
                         </p>
                         <p>
 
