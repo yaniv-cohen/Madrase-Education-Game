@@ -13,11 +13,11 @@ export const Layout = (props) => {
                     <div>
                         <p>
 
-                            <a href='http://localhost:3000/teacher'>Teacher</a>
+                            <a href={window.location.href+'teacher'}>Teacher</a>
                         </p>
                         <p>
 
-                            <a href='http://localhost:3000/Student'>Student</a>
+                            <a href={window.location.href+'student'}>Student</a>
                         </p>
 
                     </div>
