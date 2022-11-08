@@ -1,0 +1,19 @@
+.RowsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+
+    .RowsSection {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: lightblue;
+        width: max-content;
+        padding: 10px;
+        border: 2px solid black;
+        direction: rtl;
+    }
+
+}

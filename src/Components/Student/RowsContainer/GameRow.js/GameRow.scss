@@ -30,7 +30,7 @@
 }
 
 .SelectedItem {
-    background-color: greenyellow;
+    background-color: #99FE80;
     // padding: 20px;
 }
 
@@ -39,7 +39,7 @@
     //should I make correct item dissapear it dissapear?
     // display:none;
     opacity: 0.8;
-    background-color: rgb(173, 209, 114);
+    background-color: #7ec900;
     &:hover{
         transform: translate(0,0);
     cursor:    auto;

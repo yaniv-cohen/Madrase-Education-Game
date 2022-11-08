@@ -1,48 +1,40 @@
 import React, { useRef, useEffect, useState } from 'react'
 import EndScreen from './EndScreen/EndScreen'
 import GameRow from './GameRow/GameRow'
-import './RowsContainer.scss'
-const RowsContainer = props => {
-    // in props i get an array of arrays => [[{text:'', imgUr:'', value:'', id:#},{ id:#}] ,{},{} ]
-    const [leftActiveItem, setLeftActiveItem] = useState()
-    const [rightActiveItem, setRightActiveItem] = useState()
+import './DynamicRowsContainer.scss'
+import mix from '../../Utilities/mix'
+const DynamicRowsContainer = props => {
+
+    const [leftActiveItemId, setLeftActiveItemId] = useState()
+    const [rightActiveItemId, setRightActiveItemId] = useState()
 
     //states relating to the score
-    const [currentPool, setCurrentPool] = useState(props.currentPool)
     const [score, setScore] = useState(0)
     const [currentGain, setCurrentGain] = useState(1000)
     const [wrongAnswersCount, setWrongAnswersCount] = useState(0)
     const [currentTimeStart, setCurrentTimeStart] = useState()
 
 
-
-    const [markedItems, setMarkedItems] = useState([])
-    const [solvedPairs, setSolvedPairs] = useState(0)
+    const [markedItemsIds, setMarkedItemsIds] = useState([])
+    const [solvedPairsCount, setSolvedPairsCount] = useState(0)
 
     //   const { draw, ...rest } = props
     //   const canvasRef = useRef(null)
     const [rightArr, setRightArr] = useState([])
     const [leftArr, setLeftArr] = useState([])
-    useEffect(() => {
-        // console.log(`props.currentPool ${props.currentPool}`);
-    }, [])
-
-
 
     useEffect(() => {
         // console.log(solvedPairs, props.gameOptions.wordCount)
 
-        if (solvedPairs === props.gameOptions.wordCount) {
+        if (solvedPairsCount === props.gameOptions.wordCount) {
             props.setGameRunning(false)
         }
 
-    }, [solvedPairs])
+    }, [solvedPairsCount])
 
-
-
-
+    // on change in props.currentPool
     useEffect(() => {
-        // console.log(`arr was achanged`)
+        //create an array for each row, hebrew and arabic
         let left = []
         let right = []
         props.currentPool.forEach(dataPair => {
@@ -55,35 +47,36 @@ const RowsContainer = props => {
         // console.log(left)
         setRightArr(right)
         setLeftArr(left)
-        setMarkedItems([])
-        setSolvedPairs(0)
+        setMarkedItemsIds([])
+        setSolvedPairsCount(0)
         setScore(0)
     }, [props.currentPool])
 
+    //on item click, both sides
     useEffect(() => {
-        console.log('leftActiveItem is:', leftActiveItem, 'rightActiveItem is:' + rightActiveItem)
+        console.log('leftActiveItem is:', leftActiveItemId, 'rightActiveItem is:' + rightActiveItemId)
+        //start score timer
         setCurrentTimeStart(Date.now())
-        if (leftActiveItem) {
+        if (leftActiveItemId) {
             //on Correct pair
-            if (leftActiveItem === rightActiveItem) {
-                console.log('nice')
-
-                setMarkedItems([...markedItems, leftActiveItem])
-                setLeftActiveItem(null)
-                setRightActiveItem(null)
+            if (leftActiveItemId === rightActiveItemId) {
+                console.log('nice, correct!')
+                setMarkedItemsIds([...markedItemsIds, leftActiveItemId])
+                setLeftActiveItemId(null)
+                setRightActiveItemId(null)
                 const elapsedTime = Date.now() - currentTimeStart
                 setScore(score - Math.max(0, Math.min(3, Math.floor(elapsedTime / 500))) * 100 + currentGain - 200 * (wrongAnswersCount <= 4 ? wrongAnswersCount : 3))
                 setWrongAnswersCount(0)
                 setCurrentTimeStart(Date.now() + 500)
-                setSolvedPairs(solvedPairs + 1)
+                setSolvedPairsCount(solvedPairsCount + 1)
 
             }
 
             //on wrong answer
-            else if (rightActiveItem) {
+            else if (rightActiveItemId) {
                 // setScore(0)
-                setLeftActiveItem(null)
-                setRightActiveItem(null)
+                setLeftActiveItemId(null)
+                setRightActiveItemId(null)
                 // setCurrentGain(Math.max(50,currentGain-10))
                 setWrongAnswersCount(wrongAnswersCount + 1)
             }
@@ -98,46 +91,30 @@ const RowsContainer = props => {
             // setScore(null)
         }
 
-    }, [leftActiveItem, rightActiveItem])
+    }, [leftActiveItemId, rightActiveItemId])
 
 
     function handleLeftItemClick(id, item) {
         console.log('hi left', id, item)
-        if (leftActiveItem === id) {
-            setLeftActiveItem(null)
+        if (leftActiveItemId === id) {
+            setLeftActiveItemId(null)
 
         }
         else
-            setLeftActiveItem(id)
+            setLeftActiveItemId(id)
     }
 
     function handleRightItemClick(id, item) {
-        console.log('hi right', id, item)
-        if (rightActiveItem === id) {
-            setRightActiveItem(null)
+        // console.log('hi right', id, item)
+        if (rightActiveItemId === id) {
+            setRightActiveItemId(null)
 
         }
         else
-            setRightActiveItem(id)
+            setRightActiveItemId(id)
     }
 
-    function mix(inputArr) {
-        let currentIndex = inputArr.length, randomIndex;
 
-        // While there remain elements to shuffle.
-        while (currentIndex != 0) {
-
-            // Pick a remaining element.
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            // And swap it with the current element.
-            [inputArr[currentIndex], inputArr[randomIndex]] = [
-                inputArr[randomIndex], inputArr[currentIndex]];
-        }
-
-        return inputArr;
-    }
 
 
     return (
@@ -147,11 +124,11 @@ const RowsContainer = props => {
                 <EndScreen refreshWords={props.refreshWords} score={score}></EndScreen>}
             <section className='rowsSection'>
                 <GameRow showAudio={props.gameOptions.audioInHebrew ?? false}
-                    gameOptions={props.gameOptions} markedItems={markedItems} activeItem={leftActiveItem}
+                    gameOptions={props.gameOptions} markedItems={markedItemsIds} activeItem={leftActiveItemId}
                     setActiveItem={handleLeftItemClick} inputArr={leftArr}>
                 </GameRow>
                 <GameRow showAudio={props.gameOptions.audioInArabic ?? false}
-                    gameOptions={props.gameOptions} markedItems={markedItems} activeItem={rightActiveItem}
+                    gameOptions={props.gameOptions} markedItems={markedItemsIds} activeItem={rightActiveItemId}
                     setActiveItem={handleRightItemClick} inputArr={rightArr}>
 
                 </GameRow>
@@ -161,4 +138,4 @@ const RowsContainer = props => {
     )
 }
 
-export default RowsContainer
+export default DynamicRowsContainer

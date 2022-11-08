@@ -1,0 +1,12 @@
+#pageHeader{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.flexColumn{
+    display: flex;
+// flex-direction: column;
+gap:60px;
+align-items: center ;
+}

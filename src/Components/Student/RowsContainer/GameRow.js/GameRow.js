@@ -18,7 +18,8 @@ const GameRow = props => {
                             props.setActiveItem(data.id, e.target)
                         }
                     }}>
-                    {data.text + ' id:' + data.id}
+                    {/* {data.text + ' id:' + data.id} */}
+                    {data.text}
                     {props.showAudio ? <SoundIcon audioUrl={data.audio} /> : <></>}
                 </div>)
             })}

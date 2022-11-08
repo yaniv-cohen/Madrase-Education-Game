@@ -1,0 +1,12 @@
+.FieldContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 5px;
+    width: 800px;
+
+    .definition {
+        font-size: 45px;
+        color:#444;
+    }
+}
