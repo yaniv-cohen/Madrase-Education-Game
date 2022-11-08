@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Madrase-Education-Game/static/css/main.c57c4acf.css",
+    "main.js": "/Madrase-Education-Game/static/js/main.41402473.js",
+    "static/js/787.40a34dba.chunk.js": "/Madrase-Education-Game/static/js/787.40a34dba.chunk.js",
+    "index.html": "/Madrase-Education-Game/index.html",
+    "main.c57c4acf.css.map": "/Madrase-Education-Game/static/css/main.c57c4acf.css.map",
+    "main.41402473.js.map": "/Madrase-Education-Game/static/js/main.41402473.js.map",
+    "787.40a34dba.chunk.js.map": "/Madrase-Education-Game/static/js/787.40a34dba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c57c4acf.css",
+    "static/js/main.41402473.js"
+  ]
+}
