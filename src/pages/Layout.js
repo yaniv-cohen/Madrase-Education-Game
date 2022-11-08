@@ -14,7 +14,7 @@ export const Layout = (props) => {
                         <p>
 
                             <a href={window.location+'teacher'}>Teacher</a>
-                            <a href={window.location+'gggg'}>Teacher</a>
+                            {/* <a href={window.location+'gggg'}>gggg</a> */}
                         </p>
                         <p>
 
