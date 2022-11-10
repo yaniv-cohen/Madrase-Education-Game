@@ -22,7 +22,7 @@ export const TeacherContainer = () => {
     const [useArabicLetters, setUseArabicLetters] = useState(true)
 
     const handleHebrewInputChange = async (text) => {
-        console.log(text, ' set to Hebrew state')
+        //console.log(text, ' set to Hebrew state')
 
 
         setWordInput(text)
@@ -30,7 +30,7 @@ export const TeacherContainer = () => {
     }
 
     const handleArabicInputChange = (text) => {
-        console.log(text, ' set to Arabic state')
+        //console.log(text, ' set to Arabic state')
         setTranslation(text)
     }
 
@@ -38,10 +38,10 @@ export const TeacherContainer = () => {
         let newValObj = { [wordInput]: null }
         if (!manualTranslation) {
             const fetchedData = myQuestionsData.find((val) => val.hebrew === wordInput)
-            console.log('in memory : ', translation)
-            console.log(translation)
+            //console.log('in memory : ', translation)
+            //console.log(translation)
             if (translation) {
-                console.log({ [wordInput]: translation })
+                //console.log({ [wordInput]: translation })
                 newValObj = { [wordInput]: translation }
             }
         }
@@ -53,7 +53,7 @@ export const TeacherContainer = () => {
             setWordPool({ ...wordPool, ...newValObj })
         }
         else {
-            console.log("something went wrong, didn't add to word pool")
+            //console.log("something went wrong, didn't add to word pool")
         }
         //reset the input fields
         setWordInput('')
@@ -62,11 +62,15 @@ export const TeacherContainer = () => {
     }
 
     useEffect(() => {
-        console.log(wordPool)
+        //console.log(wordPool)
         if (outputUrl) {
             setOuputFromWordPool(Object.entries(wordPool))
         }
     }, [wordPool])
+
+    useEffect(() => {
+        handleInputSubmit()
+    }, [useArabicLetters])
 
     useEffect(() => {
         // console.log(wordInput)
@@ -102,16 +106,20 @@ export const TeacherContainer = () => {
 
     async function handleInputSubmit() {
         let input = wordInput
+        if(!input)
+        {
+            return
+        }
         let response = await fetch(`http://18.233.6.108:8080/get_word/${input}`)
         let output = await response.json()
-        console.log(output);
+        //console.log(output);
         if (output.words.length === 0) {
             setUserError('לא הצלחתי למצוא את המילה ' + input + ' ' + 'במאגר')
         }
         let translation = useArabicLetters ? output.words.pop().arabic_word : output.words.pop().arabic_translation
 
 
-        console.log(translation)
+        //console.log(translation)
         if (translation) {
 
             setUserError(null)
@@ -140,7 +148,7 @@ export const TeacherContainer = () => {
     function removeItemFromPool(key, val) {
 
         //refactor
-        console.log(`remove ${key}: ${val}`)
+        //console.log(`remove ${key}: ${val}`)
         let newWordPool = { ...wordPool }
         delete newWordPool[key]
         setWordPool(newWordPool)
@@ -151,7 +159,7 @@ export const TeacherContainer = () => {
             {/* <div onClick={() => { handleAction() }}>Pool action?</div> */}
             <FieldContainer>
                 <form
-                    onBlur={(e) => { e.preventDefault(); handleInputSubmit() }}
+                    onBlur={(e) => { handleInputSubmit() }}
                     onSubmit={(e) => { e.preventDefault(); handleInputSubmit() }}>                <label>
                         <p>הגדרה בעברית:</p>
                         <input
@@ -160,6 +168,7 @@ export const TeacherContainer = () => {
                             // }} 
                             value={wordInput} type="text"
                             onChange={(e) => { handleHebrewInputChange(e.target.value) }}></input>
+                        <button onClick={() => { handleInputSubmit() }}>חפש</button>
                     </label>
                 </form>
 
@@ -193,18 +202,25 @@ export const TeacherContainer = () => {
                         </div> :
                         <div>
                             <p>מחפש מילה בעברית...</p>
+                            {/* <p className={useArabicLetters ? 'enabledText' : 'disabledText'} onClick={() => {
+                                if (useArabicLetters) {
+                                    setUseArabicLetters(false)
+                                }
+                                else
+                                    setUseArabicLetters(true)
+                                handleInputSubmit()
+                            }}>שימוש בתעתיק</p> */}
                             <label>
-                                <input type='checkbox'
-                                    onChange={() => {
-                                        if (useArabicLetters) {
-                                            setUseArabicLetters(false)
-                                        }
-                                        else
-                                            setUseArabicLetters(true)
-                                        handleInputSubmit()
 
-                                    }} checked={useArabicLetters}></input>
-                                שימוש בתעתיק</label>
+                                <input type='checkbox' checked={!useArabicLetters}
+                                    onChange={() => {
+                                        setUseArabicLetters(!useArabicLetters);
+
+                                    }}
+                                // onClick={()=>{handleInputSubmit()}}
+                                >
+                                </input>{'שימוש בתעתיק'}</label>
+
                         </div>
 
                     }
@@ -222,7 +238,7 @@ export const TeacherContainer = () => {
 
                 }
                 <button onClick={() => { handleSubmitTextInput() }}
-                    class="button-74" role="button"
+                    className="button-74" role="button"
                 >הוסף</button>
             </FieldContainer>
 
@@ -231,7 +247,7 @@ export const TeacherContainer = () => {
                 {/* {JSON.stringify(wordPool)} */}
                 <h1>רשימת המילים:</h1>
                 {Object.entries(wordPool).map((input, index) => {
-                    console.log(input)
+                    //console.log(input)
                     return (
                         <li key={index} className="OutputLI">
 
@@ -249,14 +265,14 @@ export const TeacherContainer = () => {
             </ul>
             <div>
                 <button onClick={() => { handleGenerateUrlClick() }}
-                    class="button-74" role="button">צור תרגיל</button>
+                    className="button-74" role="button">צור תרגיל</button>
 
             </div>
             {outputUrl ?
                 <Card>
                     <div className="OutputDiv">
                         <button onClick={() => {
-                            console.log('coping text', outputUrl)
+                            //console.log('coping text', outputUrl)
                             navigator.clipboard.writeText(outputUrl)
                         }}
                         >

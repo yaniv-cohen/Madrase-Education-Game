@@ -8,7 +8,15 @@
     // background-color: azure;
 
 }
+.enabledText
+{
+  color:#42d0c9;
+  font-weight: 700;
+}
+.disabledText{
+  color:#9e9e9e;
 
+}
 .OutputLI {
     display: flex;
     flex-direction: row;

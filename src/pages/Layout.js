@@ -5,7 +5,7 @@ export const Layout = (props) => {
         <header id="pageHeader">
             <div className='flexColumn'>
 
-                <img height="70" src="https://madrasafree.com/wp-content/uploads/2022/02/logo.png" class="attachment-large size-large" alt="" loading="lazy" />
+                <img height="70" src="https://madrasafree.com/wp-content/uploads/2022/02/logo.png" className="attachment-large size-large" alt="" loading="lazy" />
         <p>ברוכים הבאים!</p>
 
 
