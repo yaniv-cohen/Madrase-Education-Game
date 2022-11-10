@@ -106,8 +106,7 @@ export const TeacherContainer = () => {
 
     async function handleInputSubmit() {
         let input = wordInput
-        if(!input)
-        {
+        if (!input) {
             return
         }
         let response = await fetch(`http://18.233.6.108:8080/get_word/${input}`)
@@ -160,19 +159,22 @@ export const TeacherContainer = () => {
             <FieldContainer>
                 <form
                     onBlur={(e) => { handleInputSubmit() }}
-                    onSubmit={(e) => { e.preventDefault(); handleInputSubmit() }}>                <label>
-                        <p>הגדרה בעברית:</p>
-                        <input
-                            // onFocus={() => {
-                            //     handleHebrewInputChange('')
-                            // }} 
-                            value={wordInput} type="text"
-                            onChange={(e) => { handleHebrewInputChange(e.target.value) }}></input>
-                        <button onClick={() => { handleInputSubmit() }}>חפש</button>
-                    </label>
+                    onSubmit={(e) => { e.preventDefault(); handleInputSubmit() }}>
+                    <div >
+                            <p>הגדרה בעברית:</p>
+                            <input  style={{marginLeft: '20px'}}
+                                // onFocus={() => {
+                                //     handleHebrewInputChange('')
+                                // }} 
+                                value={wordInput} type="text"
+                                onChange={(e) => { handleHebrewInputChange(e.target.value) }}></input>
+
+                            <button className="button-74" role="button" onClick={() => { handleInputSubmit() }}>חפש</button>
+                    </div>
+
                 </form>
 
-            </FieldContainer>
+            </FieldContainer >
             <FieldContainer>
                 <div>
 
@@ -237,9 +239,10 @@ export const TeacherContainer = () => {
                 )
 
                 }
+                <div>
                 <button onClick={() => { handleSubmitTextInput() }}
                     className="button-74" role="button"
-                >הוסף</button>
+                >הוסף</button></div>
             </FieldContainer>
 
 
@@ -268,26 +271,28 @@ export const TeacherContainer = () => {
                     className="button-74" role="button">צור תרגיל</button>
 
             </div>
-            {outputUrl ?
-                <Card>
-                    <div className="OutputDiv">
-                        <button onClick={() => {
-                            //console.log('coping text', outputUrl)
-                            navigator.clipboard.writeText(outputUrl)
-                        }}
-                        >
-                            <img src='https://www.svgrepo.com/show/3110/copy.svg' alt='העתק'></img>
-                        </button>
-                        <div style={{ width: '350px', direction: "ltr" }}>
-                            <p>
-                                <a target={"_blank"} href={outputUrl}>{outputUrl}</a>
-                            </p>
+            {
+                outputUrl ?
+                    <Card>
+                        <div className="OutputDiv">
+                            <button onClick={() => {
+                                //console.log('coping text', outputUrl)
+                                navigator.clipboard.writeText(outputUrl)
+                            }}
+                            >
+                                <img src='https://www.svgrepo.com/show/3110/copy.svg' alt='העתק'></img>
+                            </button>
+                            <div style={{ width: '350px', direction: "ltr" }}>
+                                <p>
+                                    <a target={"_blank"} href={outputUrl}>{outputUrl}</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </Card> :
-                <></>}
+                    </Card> :
+                    <></>
+            }
 
-        </main>
+        </main >
     )
 }
 export default TeacherContainer
