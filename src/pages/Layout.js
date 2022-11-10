@@ -13,7 +13,7 @@ export const Layout = (props) => {
                     <div>
                         <p>
 
-                            <a href={window.location.href+'teacher'}>Teacher</a>
+                            <a href={'http://localhost:3000/teacher'}>Teacher</a>
                         </p>
                         <p>
 

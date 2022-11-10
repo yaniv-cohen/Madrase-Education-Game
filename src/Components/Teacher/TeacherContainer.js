@@ -19,6 +19,7 @@ export const TeacherContainer = () => {
     const [translationFromDb, setTranslationFromDb] = useState('')
     const [outputUrl, setOutputUrl] = useState(null)
     const [manualTranslation, setManualTranslation] = useState(false)
+    const [useArabicLetters, setUseArabicLetters] = useState(true)
 
     const handleHebrewInputChange = async (text) => {
         console.log(text, ' set to Hebrew state')
@@ -37,9 +38,11 @@ export const TeacherContainer = () => {
         let newValObj = { [wordInput]: null }
         if (!manualTranslation) {
             const fetchedData = myQuestionsData.find((val) => val.hebrew === wordInput)
-            console.log('in memory : ', fetchedData)
-            if (fetchedData) {
-                newValObj = { [wordInput]: fetchedData.arabic }
+            console.log('in memory : ', translation)
+            console.log(translation)
+            if (translation) {
+                console.log({ [wordInput]: translation })
+                newValObj = { [wordInput]: translation }
             }
         }
         else {
@@ -66,12 +69,12 @@ export const TeacherContainer = () => {
     }, [wordPool])
 
     useEffect(() => {
-        console.log(wordInput)
+        // console.log(wordInput)
 
-        if (!manualTranslation) {
-            findInDb()
+        // if (!manualTranslation) {
+        //     findInDb()
 
-        }
+        // }
 
 
     }, [wordInput])
@@ -94,6 +97,27 @@ export const TeacherContainer = () => {
             // setWordInput('')
             setUserError(`המילה "${wordInput}" לא קיימת במאגר`)
             // setUserError('מילה לא קיימת במאגר')
+        }
+    }
+
+    async function handleInputSubmit() {
+        let input = wordInput
+        let response = await fetch(`http://18.233.6.108:8080/get_word/${input}`)
+        let output = await response.json()
+        console.log(output);
+        if (output.words.length === 0) {
+            setUserError('לא הצלחתי למצוא את המילה ' + input + ' ' + 'במאגר')
+        }
+        let translation = useArabicLetters ? output.words.pop().arabic_word : output.words.pop().arabic_translation
+
+
+        console.log(translation)
+        if (translation) {
+
+            setUserError(null)
+            setTranslationFromDb(translation)
+
+            setTranslation(translation)
         }
     }
 
@@ -126,15 +150,19 @@ export const TeacherContainer = () => {
         <main className='TeacherContainer'>
             {/* <div onClick={() => { handleAction() }}>Pool action?</div> */}
             <FieldContainer>
-                <label>
-                    <p>הגדרה בעברית:</p>
-                    <input
-                        // onFocus={() => {
-                        //     handleHebrewInputChange('')
-                        // }} 
-                        value={wordInput} type="text"
-                        onChange={(e) => { handleHebrewInputChange(e.target.value) }}></input>
-                </label>
+                <form
+                    onBlur={(e) => { e.preventDefault(); handleInputSubmit() }}
+                    onSubmit={(e) => { e.preventDefault(); handleInputSubmit() }}>                <label>
+                        <p>הגדרה בעברית:</p>
+                        <input
+                            // onFocus={() => {
+                            //     handleHebrewInputChange('')
+                            // }} 
+                            value={wordInput} type="text"
+                            onChange={(e) => { handleHebrewInputChange(e.target.value) }}></input>
+                    </label>
+                </form>
+
             </FieldContainer>
             <FieldContainer>
                 <div>
@@ -165,8 +193,18 @@ export const TeacherContainer = () => {
                         </div> :
                         <div>
                             <p>מחפש מילה בעברית...</p>
+                            <label>
+                                <input type='checkbox'
+                                    onChange={() => {
+                                        if (useArabicLetters) {
+                                            setUseArabicLetters(false)
+                                        }
+                                        else
+                                            setUseArabicLetters(true)
+                                        handleInputSubmit()
 
-
+                                    }} checked={useArabicLetters}></input>
+                                שימוש בתעתיק</label>
                         </div>
 
                     }
